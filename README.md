@@ -6,16 +6,6 @@ The system predicts delivery ETAs using an XGBoost regression model, optimizes d
 
 The project demonstrates the integration of machine learning, optimization algorithms, backend engineering, testing, and cloud deployment into a single application.
 
-## Live Application
-
-Frontend: https://your-vercel-app.vercel.app
-
-Backend API: https://your-render-app.onrender.com
-
-API Documentation: https://your-render-app.onrender.com/docs
-
-Health Check: https://your-render-app.onrender.com/health
-
 ## Live Deployment
 
 | Component | URL |
