@@ -5,6 +5,7 @@ Production-style last-mile delivery optimization platform combining Machine Lear
 The system predicts delivery ETAs using an XGBoost regression model, optimizes delivery routes using Google OR-Tools, and exposes these capabilities through a FastAPI REST API consumed by a React frontend.
 
 The project demonstrates the integration of machine learning, optimization algorithms, backend engineering, testing, and cloud deployment into a single application.
+(The application is deployed as a React frontend on Vercel and a FastAPI backend on Render, with live REST APIs and interactive Swagger documentation.)
 
 ## Live Deployment
 
