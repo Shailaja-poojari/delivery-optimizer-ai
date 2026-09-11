@@ -1,0 +1,20 @@
+{
+  "mae_minutes": 4.922,
+  "rmse_minutes": 6.254,
+  "r2": 0.554,
+  "training_rows": 36474,
+  "test_rows": 9119,
+  "dataset": "Kaggle Food Delivery Time Prediction Case Study",
+  "model": "XGBoostRegressor",
+  "hyperparameters": {
+    "n_estimators": 350,
+    "max_depth": 6,
+    "learning_rate": 0.04,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85,
+    "objective": "reg:squarederror",
+    "random_state": 42
+  },
+  "training_seconds": 2.7,
+  "trained_at_utc": "2026-09-11T13:15:31+00:00"
+}
