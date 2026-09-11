@@ -1,176 +1,220 @@
-# 🚚 Delivery Optimizer AI
+# Delivery Optimizer AI
 
-An AI-powered last-mile delivery optimization platform that combines **Machine Learning**, **Route Optimization**, and a modern **React dashboard** to help logistics teams predict delivery ETAs, optimize delivery routes, monitor fleet performance, and improve operational efficiency.
+Production-style last-mile delivery optimization platform combining Machine Learning, Route Optimization, and a modern React dashboard.
 
-Unlike traditional dashboards, this project separates **Machine Learning**, **Optimization Algorithms**, and **Business Logic** into independent services to make the system scalable and maintainable.
+The system predicts delivery ETAs using an XGBoost regression model, optimizes delivery routes using Google OR-Tools, and exposes these capabilities through a FastAPI REST API consumed by a React frontend.
 
----
+The project demonstrates the integration of machine learning, optimization algorithms, backend engineering, testing, and cloud deployment into a single application.
+
+## Live Application
+
+Frontend: https://your-vercel-app.vercel.app
+
+Backend API: https://your-render-app.onrender.com
+
+API Documentation: https://your-render-app.onrender.com/docs
+
+Health Check: https://your-render-app.onrender.com/health
+
+## Live Deployment
+
+| Component | URL |
+|----------|-----|
+| Frontend | https://YOUR-VERCEL-URL.vercel.app |
+| Backend API | https://YOUR-RENDER-URL.onrender.com |
+| API Documentation | https://YOUR-RENDER-URL.onrender.com/docs |
+| Health Endpoint | https://YOUR-RENDER-URL.onrender.com/health |
+
+Replace the placeholder URLs after deployment.
 
 ## Architecture
 
 ```text
-                 React + Vite Dashboard
-                         │
-                    REST API Calls
-                         │
-                         ▼
-          FastAPI Delivery Intelligence API
-          ├── XGBoost ETA Prediction Model
-          ├── Google OR-Tools Route Optimizer
-          └── Business Rules Engine
+                     React + Vite Frontend
+                              │
+                         REST API Calls
+                              │
+                              ▼
+                 FastAPI Delivery Intelligence API
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+          ▼                   ▼                   ▼
+  ETA Prediction      Route Optimization    Business Rules
+     XGBoost           Google OR-Tools       Rule Engine
 ```
 
----
+The frontend communicates exclusively with the FastAPI backend through REST APIs.
 
-# Tech Stack
+The backend separates machine learning inference, optimization algorithms, and business logic into independent components, making the system easier to extend, maintain, and deploy.
 
-## Frontend
+## Technology Stack
+
+### Frontend
 
 - React
 - Vite
-- Tailwind CSS
 - JavaScript
+- Tailwind CSS
 - Leaflet Maps
 
-## Backend
+### Backend
 
+- Python 3.12
 - FastAPI
-- Python
 - Pydantic
 
-## Machine Learning
+### Machine Learning
 
 - XGBoost
-- Scikit-learn
+- Scikit-Learn
 - Pandas
 - NumPy
+- Joblib
 
-## Route Optimization
+### Optimization
 
 - Google OR-Tools
 
-## Testing
+### Testing
 
 - Pytest
 
-## CI/CD
+### CI
 
 - GitHub Actions
 
-## Dataset
+### Deployment
 
-Food Delivery Time Prediction Case Study (Kaggle)
+- Vercel
+- Render
+- Docker
 
----
+## Features
 
-# Features
+### ETA Prediction
 
-## Machine Learning
-
-- ETA prediction using XGBoost Regression
-- Batch ETA prediction API
-- Complete preprocessing pipeline
-- Model serialization using Joblib
+- XGBoost regression model
+- Batch prediction endpoint
 - Reproducible training pipeline
+- Feature engineering pipeline
+- Serialized Scikit-Learn preprocessing pipeline
+- Model persistence using Joblib
 
-## Route Optimization
+### Route Optimization
 
-- Vehicle Route Optimization
+- Vehicle route optimization
 - Capacity-constrained routing
 - Multi-stop sequencing
+- Distance minimization
 - Google OR-Tools integration
 
-## Dashboard
+### Dashboard
 
-- Real-time delivery dashboard
-- Delivery agent tracking
-- GPS support
+- Interactive operations dashboard
+- Fleet overview
+- Delivery tracking
+- GPS visualization
 - Sustainability analytics
 - Delay prediction
 - Emergency mode
 - Festival mode
 - Offline support
 
----
+### Backend
 
-# AI vs Business Logic
+- FastAPI REST API
+- Automatic OpenAPI documentation
+- Input validation using Pydantic
+- Health monitoring endpoint
+- Structured API responses
+- Modular architecture
 
-| Capability | Implementation | Type |
-|------------|----------------|------|
+## Screenshots
+
+### Dashboard
+
+![Dashboard](dashboard.jpg)
+
+### Delivery Map
+
+![Delivery Map](map-view.jpg)
+
+### Delivery Agent
+
+![Delivery Agent](DeliveryAgentApp.jpg)
+
+## AI Components
+
+| Capability | Implementation | Category |
+|------------|---------------|----------|
 | ETA Prediction | XGBoost Regression | Machine Learning |
 | Route Optimization | Google OR-Tools | Operations Research |
-| Delay Alerts | Business Rules | Rule Engine |
-| Emergency Mode | Business Rules | Rule Engine |
-| Festival Mode | Business Rules | Rule Engine |
+| Delay Alerts | Rule Engine | Business Logic |
+| Emergency Mode | Rule Engine | Business Logic |
+| Festival Mode | Rule Engine | Business Logic |
 
-The project intentionally separates Machine Learning from traditional business logic. Route optimization is powered by **Google OR-Tools**, while ETA prediction uses an independently trained **XGBoost model**.
+The ETA prediction model and route optimization engine are intentionally implemented as separate services.
 
----
+Machine learning is used only where historical data improves prediction quality. Rule-based business logic remains isolated from the predictive model, while route optimization is solved using Google OR-Tools.
 
-# Model Performance
+This separation improves maintainability, testing, and future extensibility.
 
-The ETA prediction model was trained using the [Food Delivery Time Prediction Case Study dataset](https://www.kaggle.com/datasets/gauravmalik26/food-delivery-dataset) dataset from Kaggle.
+## Model Performance
 
-### Latest Evaluation
+The ETA prediction model was trained using the [Food Delivery Time Prediction Case Study dataset](https://www.kaggle.com/datasets/gauravmalik26/food-delivery-dataset) from Kaggle.
 
-| Metric | Score |
-|---------|------:|
-| MAE | **4.922 minutes** |
-| RMSE | **6.254 minutes** |
+Evaluation was performed on a held-out 20% test set.
+
+| Metric | Value |
+|--------|------:|
+| Mean Absolute Error (MAE) | **4.922 minutes** |
+| Root Mean Squared Error (RMSE) | **6.254 minutes** |
 | R² Score | **0.554** |
 
 ### Interpretation
 
-- Average prediction error is approximately **4.9 minutes**.
+- Average prediction error is approximately 4.9 minutes.
 - RMSE indicates occasional larger prediction errors while remaining stable overall.
-- The model explains approximately **55%** of the variance in delivery times.
+- The model explains approximately 55% of the observed variance in delivery times.
 
-A detailed evaluation report is available in **RESULTS.md**.
+Complete evaluation metrics are documented in `RESULTS.md`.
 
----
+## REST API
 
-# Screenshots
+Interactive API documentation is automatically generated by FastAPI.
 
-## Dashboard
+Local development:
 
-![Dashboard](dashboard.jpg)
-
----
-
-## Delivery Map
-
-![Map](map-view.jpg)
-
----
-
-## Delivery Agent
-
-![Delivery Agent](DeliveryAgentApp.jpg)
-
----
-
-# API Endpoints
-
-The FastAPI backend exposes interactive API documentation at
-
-```
-
+```text
 http://localhost:8000/docs
-
 ```
+
+Production:
+
+```text
+https://YOUR-RENDER-URL.onrender.com/docs
+```
+
+### Endpoints
 
 | Method | Endpoint | Description |
-|---------|-----------|------------|
-| GET | /health | Service health |
-| POST | /predict-eta | Predict ETA |
-| POST | /predict-etas | Batch ETA Prediction |
-| POST | /optimize-route | Vehicle Route Optimization |
+|--------|----------|-------------|
+| GET | `/health` | Service health |
+| POST | `/predict-eta` | Predict delivery ETA |
+| POST | `/predict-etas` | Batch ETA prediction |
+| POST | `/optimize-route` | Vehicle route optimization |
 
----
+## Local Development
 
-# Running the Project
+Clone the repository.
 
-## Backend
+```bash
+git clone https://github.com/YOUR_USERNAME/delivery-optimizer-ai.git
+
+cd delivery-optimizer-ai
+```
+
+### Backend
 
 ```bash
 cd backend
@@ -188,18 +232,16 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-## Frontend
+### Frontend
 
 ```bash
 npm install
 
 npm run dev
 ```
----
 
-# Training the ETA Model
-
-The ETA prediction model is trained on the **Food Delivery Time Prediction Case Study** dataset from Kaggle.
+## Training the ETA Model
+The ETA prediction model is trained using the public **Food Delivery Time Prediction Case Study** dataset available on Kaggle.
 
 Download the dataset:
 
@@ -209,7 +251,7 @@ pip install kaggle
 kaggle datasets download -d gauravmalik26/food-delivery-dataset --unzip
 ```
 
-Create a virtual environment and install dependencies:
+Create a Python virtual environment.
 
 ```bash
 cd backend
@@ -225,222 +267,470 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Train the model:
+Train the model.
 
 ```bash
 python train_eta.py --data "/path/to/train.csv"
 ```
 
-Training automatically generates:
+Training generates the following artifacts.
 
-```
+```text
 backend/models/
-    eta_model.joblib
-    metrics.json
+├── eta_model.joblib
+└── metrics.json
 ```
 
-These files are intentionally excluded from Git because they are reproducible artifacts generated from a third-party dataset.
+The trained model artifact is intentionally excluded from version control because it is generated from a third-party dataset and can be reproduced locally.
 
----
+## Feature Engineering
 
-# Feature Engineering
-
-The model is trained using the following features:
+The ETA prediction model uses engineered features derived from raw delivery records.
 
 | Feature | Description |
 |----------|-------------|
-| Distance | Haversine distance between restaurant and customer |
-| Traffic Level | Road traffic density |
+| Distance | Haversine distance between restaurant and delivery location |
+| Traffic Level | Encoded road traffic density |
 | Weather | Delivery weather conditions |
-| Hour | Time of order |
-| Stops Remaining | Number of deliveries assigned |
+| Hour of Day | Order placement hour |
+| Stops Remaining | Number of assigned deliveries |
 | Festival | Festival indicator |
-| Package Weight | Default 1 kg (dataset limitation) |
+| Package Weight | Default value used due to dataset limitation |
 
-Preprocessing is handled inside a serialized **Scikit-Learn Pipeline**, ensuring identical transformations during both training and inference.
+Preprocessing is encapsulated inside a serialized Scikit-Learn Pipeline to guarantee identical transformations during both training and inference.
 
----
+Pipeline preprocessing includes:
 
-# Running Tests
+- Median imputation for numerical features
+- Most-frequent imputation for categorical features
+- One-hot encoding
+- Automatic handling of unseen categorical values
+- Feature serialization together with the trained model
 
-The backend contains automated API tests built with **Pytest**.
+## Model Evaluation
 
-Install development dependencies:
+The model is evaluated exclusively on a held-out test set.
+
+Evaluation metrics are automatically written to `backend/models/metrics.json`.
+
+Latest evaluation:
+
+| Metric | Value |
+|---------|------:|
+| MAE | 4.922 minutes |
+| RMSE | 6.254 minutes |
+| R² | 0.554 |
+
+The repository includes `RESULTS.md`, which documents the evaluation metrics, training configuration, and reproducibility details.
+
+## Testing
+
+The backend includes automated API tests implemented using Pytest.
+
+Install development dependencies.
 
 ```bash
 pip install -r requirements.txt -r requirements-dev.txt
 ```
 
-Run tests:
+Execute the test suite.
 
 ```bash
 pytest
 ```
 
-Run linting:
+Run linting.
 
 ```bash
 ruff check .
 ```
 
-The current test suite validates:
+The current test suite verifies:
 
-- API health endpoint
-- ETA prediction
-- Batch prediction
-- Route optimization
+- Health endpoint
+- ETA prediction endpoint
+- Batch prediction endpoint
+- Route optimization endpoint
 - Request validation
+- Invalid payload handling
 - Edge cases
-- Error handling
-- OpenAPI schema
+- OpenAPI schema generation
 
----
+The test suite uses a deterministic stub model, allowing API testing without downloading the Kaggle dataset.
 
-# Continuous Integration
+## Continuous Integration
 
-GitHub Actions automatically runs on every backend push or pull request.
+Continuous Integration is implemented using GitHub Actions.
 
-The pipeline executes:
+Every backend push or pull request automatically executes:
 
 - Ruff linting
 - Pytest test suite
 
-Workflow file:
+Workflow location:
 
-```
+```text
 .github/workflows/backend.yml
+```
+
+This ensures API functionality remains stable before deployment.
+
+## Deployment
+
+The application is deployed as two independent services.
+
+### Frontend
+
+Platform:
+
+- Vercel
+
+Technology:
+
+- React
+- Vite
+
+Build command:
+
+```bash
+npm run build
+```
+
+Output directory:
+
+```text
+dist/
+```
+
+Environment variable:
+
+```text
+VITE_AI_API_URL=https://YOUR-RENDER-URL.onrender.com
 ```
 
 ---
 
-# Deployment
+### Backend
 
-The backend includes deployment configurations for:
+Platform:
 
-- Docker
 - Render
-- Railway
 
-Run locally with Docker:
+Technology:
+
+- FastAPI
+- Docker
+
+The backend container:
+
+- binds to `0.0.0.0`
+- respects the `PORT` environment variable
+- exposes `/health` for health monitoring
+
+Run locally using Docker.
 
 ```bash
 docker compose up --build
 ```
 
-The backend automatically binds to:
+Deployment configuration is provided through:
 
-```
-0.0.0.0
-```
-
-and respects
-
-```
-PORT
-```
-
-environment variables for cloud deployment.
-
-Deployment configuration files:
-
-```
+```text
 render.yaml
-railway.toml
+backend/Dockerfile
 backend/DEPLOYMENT.md
 ```
 
----
+## Runtime Configuration
 
-# Existing Dashboard Features
-
-- AI ETA Prediction
-- Vehicle Route Optimization
-- Interactive Maps
-- GPS Tracking
-- Smart Delay Alerts
-- Delivery Risk Analysis
-- Sustainability Dashboard
-- Offline Support
-- Delivery Agent Interface
-- Supabase Integration
-- Emergency Mode
-- Festival Mode
-
----
-
-# Project Structure
+Frontend environment variables.
 
 ```text
-.github/
-└── workflows/
-    └── backend.yml
-
-backend/
-├── main.py
-├── train_eta.py
-├── tests/
-├── requirements.txt
-├── requirements-dev.txt
-├── Dockerfile
-├── DEPLOYMENT.md
-└── models/
-
-src/
-├── components/
-├── services/
-├── utils/
-├── pages/
-└── App.jsx
-
-RESULTS.md
-INTERVIEW_NOTES.md
-render.yaml
-railway.toml
-docker-compose.yml
+VITE_AI_API_URL=https://YOUR-RENDER-URL.onrender.com
 ```
 
----
+Backend environment variables.
 
-# Future Improvements
+```text
+PORT=8000
 
-- Train on proprietary logistics datasets
-- Live traffic integration
-- Driver behavior modeling
+ETA_MODEL_PATH=backend/models/eta_model.joblib
+
+CORS_ALLOWED_ORIGINS=https://YOUR-VERCEL-URL.vercel.app
+```
+
+The deployed backend automatically loads the trained model during startup.
+
+If the model artifact is unavailable, the service continues running while reporting:
+
+```json
+{
+  "status": "ok",
+  "model_ready": false
+}
+```
+
+The frontend gracefully falls back to its offline ETA estimation to maintain functionality.
+
+## API Reference
+
+FastAPI automatically exposes interactive Swagger documentation.
+
+Development.
+
+```text
+http://localhost:8000/docs
+```
+
+Production.
+
+```text
+https://YOUR-RENDER-URL.onrender.com/docs
+```
+
+### Health Endpoint
+
+```http
+GET /health
+```
+
+Returns service health and model availability.
+
+### ETA Prediction
+
+```http
+POST /predict-eta
+```
+
+Predicts delivery time for a single order.
+
+### Batch ETA Prediction
+
+```http
+POST /predict-etas
+```
+
+Predicts delivery times for multiple deliveries.
+
+### Route Optimization
+
+```http
+POST /optimize-route
+```
+
+Computes optimized delivery routes using Google OR-Tools.
+
+## Docker
+
+Build locally.
+
+```bash
+docker compose up --build
+```
+
+The Docker image includes:
+
+- FastAPI
+- XGBoost
+- Google OR-Tools
+- Scikit-Learn
+- Python runtime
+
+The application is production-ready and can be deployed to any Docker-compatible cloud platform.
+
+## Project Structure
+
+```text
+delivery-optimizer-ai/
+│
+├── .github/
+│   └── workflows/
+│       └── backend.yml          # CI pipeline
+│
+├── backend/
+│   ├── main.py                  # FastAPI application
+│   ├── train_eta.py             # Model training pipeline
+│   ├── tests/                   # Automated API tests
+│   ├── requirements.txt
+│   ├── requirements-dev.txt
+│   ├── Dockerfile
+│   ├── DEPLOYMENT.md
+│   ├── .env.example
+│   └── models/                  # Generated model artifacts (gitignored)
+│
+├── public/
+│
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── RESULTS.md                   # Model evaluation results
+├── docker-compose.yml
+├── render.yaml
+├── railway.toml
+├── package.json
+└── README.md
+```
+
+## Engineering Decisions
+
+Several design decisions were made to keep the project modular, reproducible, and easy to extend.
+
+### Separation of Concerns
+
+The application separates responsibilities into independent layers.
+
+- React handles presentation and user interaction.
+- FastAPI exposes REST endpoints.
+- XGBoost performs ETA prediction.
+- Google OR-Tools solves route optimization.
+- Business rules remain independent of the machine learning model.
+
+This separation allows each component to evolve independently without affecting the others.
+
+### Machine Learning Pipeline
+
+The ETA model is packaged as a Scikit-Learn Pipeline.
+
+Benefits include:
+
+- Consistent preprocessing during training and inference
+- Single serialized artifact
+- Easier deployment
+- Reduced risk of feature mismatch
+
+### Reproducibility
+
+Training uses fixed random seeds and records evaluation metrics.
+
+The repository includes:
+
+- Training pipeline
+- Hyperparameters
+- Evaluation metrics
+- Feature engineering process
+
+allowing anyone to reproduce the reported results.
+
+### Cloud Deployment
+
+The frontend and backend are deployed independently.
+
+Benefits include:
+
+- Independent deployments
+- Better scalability
+- Simpler maintenance
+- Easier future migration to managed services
+
+## Existing Functionality Preserved
+
+The original dashboard capabilities remain fully functional.
+
+- Interactive delivery dashboard
+- Fleet monitoring
+- Delivery agent interface
+- Delivery tracking
+- GPS visualization
+- Sustainability metrics
+- Delay prediction
+- Offline support
+- Emergency mode
+- Festival mode
+- Supabase integration
+
+The AI backend augments these capabilities without replacing the existing application logic.
+
+## Future Improvements
+
+Potential enhancements include:
+
+- Real-time traffic integration
+- Road-network travel-time estimation
 - Multiple depots
+- Driver scheduling
+- Vehicle capacity optimization
 - Time-window constrained routing
 - Dynamic fleet assignment
-- Real-time ETA retraining
-- Model monitoring dashboard
-- Prediction drift detection
-- Live GPS travel-time estimation
+- Prediction monitoring
+- Automatic model retraining
+- Drift detection
+- Historical analytics
+- Live telemetry ingestion
+- Event-driven architecture using message queues
+- Authentication and role-based access control
 
----
+## Learning Outcomes
 
-# Why This Project?
+This project provided practical experience with:
 
-This project demonstrates how modern logistics software combines **Machine Learning**, **Optimization Algorithms**, and **Backend Engineering** into a production-style application.
-
-Key engineering highlights include:
-
-- End-to-end ML pipeline using XGBoost
-- FastAPI REST backend
-- Google OR-Tools optimization
+- FastAPI application development
+- REST API design
+- Machine Learning deployment
+- Feature engineering
+- XGBoost regression
+- Scikit-Learn pipelines
+- Google OR-Tools
+- Model serialization
 - Automated testing with Pytest
-- CI using GitHub Actions
-- Reproducible model training
-- Clean architecture separating AI, optimization, and business logic
-- Offline-first frontend design with graceful degradation
+- Docker containerization
+- Cloud deployment
+- GitHub Actions CI
+- Modern React application architecture
+- Frontend-backend integration
 
----
+## Repository Contents
 
-# License
+The repository contains:
+
+- React frontend
+- FastAPI backend
+- Machine learning training pipeline
+- Route optimization engine
+- Automated test suite
+- Docker configuration
+- Continuous Integration workflow
+- Deployment configuration
+- Reproducible evaluation results
+
+The trained model artifact is intentionally excluded from version control because it is generated from a third-party dataset and can be recreated locally.
+
+## References
+
+Dataset:
+
+Food Delivery Time Prediction Case Study
+
+https://www.kaggle.com/datasets/gauravmalik26/food-delivery-dataset
+
+Libraries:
+
+- FastAPI
+- React
+- XGBoost
+- Scikit-Learn
+- Google OR-Tools
+- Leaflet
+- Pytest
+
+## License
 
 This project is licensed under the MIT License.
 
----
+See the `LICENSE` file for details.
 
-# Author
+## Author
 
 **Shailaja Poojari**
 
-If you found this project useful or interesting, feel free to ⭐ the repository.
+GitHub
+
+https://github.com/Shailaja-poojari
+
+---
+
+This project was developed to explore the practical integration of machine learning, optimization algorithms, and backend engineering within a production-style logistics application. It demonstrates an end-to-end workflow covering model training, REST API development, automated testing, cloud deployment, and a modern frontend interface while maintaining a modular architecture that can be extended for real-world logistics systems.
