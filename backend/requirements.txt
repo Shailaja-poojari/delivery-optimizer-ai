@@ -1,0 +1,11 @@
+# Runtime dependencies for the Delivery Intelligence API.
+# Test/lint dependencies live in requirements-dev.txt.
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.4
+scikit-learn==1.6.1
+xgboost==2.1.4
+pandas==2.2.3
+numpy==2.2.5
+joblib==1.4.2
+ortools==9.12.4544

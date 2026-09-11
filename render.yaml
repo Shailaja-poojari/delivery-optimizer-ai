@@ -1,0 +1,19 @@
+# Render blueprint — deploys the FastAPI Delivery Intelligence API as a web service.
+# Push this file to your repo, then "New +" -> "Blueprint" in the Render dashboard.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: delivery-intelligence-api
+    plan: free
+    runtime: docker
+    branch: main
+    rootDir: .
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Lock this down to your deployed dashboard origin(s) once the frontend URL is fixed,
+      # e.g. https://your-dashboard.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        value: "*"
