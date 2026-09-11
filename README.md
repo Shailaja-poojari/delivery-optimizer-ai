@@ -109,7 +109,7 @@ The project intentionally separates Machine Learning from traditional business l
 
 # Model Performance
 
-The ETA prediction model was trained using the **Food Delivery Time Prediction Case Study** dataset from Kaggle.
+The ETA prediction model was trained using the [Food Delivery Time Prediction Case Study dataset](https://www.kaggle.com/datasets/gauravmalik26/food-delivery-dataset) dataset from Kaggle.
 
 ### Latest Evaluation
 
