@@ -2,82 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------------------------------------------------ */
-/*  Design tokens                                                      */
-/* ------------------------------------------------------------------ */
-:root {
-  --canvas: #f4f6f8;
-  --surface: #ffffff;
-  --ink: #0f172a;
-  --accent: #4f46e5;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Base                                                               */
-/* ------------------------------------------------------------------ */
+/* Optional: Body font base */
 @layer base {
-  html {
-    -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
-  }
-
   body {
-    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-    background-color: var(--canvas);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  /* Visible, consistent keyboard focus everywhere */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  ::selection {
-    background-color: #c7d2fe;
-    color: #1e1b4b;
-  }
-
-  /* Slim, unobtrusive scrollbars */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
-  }
-  *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  *::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 999px;
-  }
-  *::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  /* Respect users who prefer less motion */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-    html {
-      scroll-behavior: auto;
-    }
+    font-family: 'Inter', sans-serif;
   }
 }
-
-/* ------------------------------------------------------------------ */
-/*  Motion                                                             */
-/* ------------------------------------------------------------------ */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -91,79 +21,4 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.6s ease-out forwards;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeUp {
-  animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -400px 0;
-  }
-  100% {
-    background-position: 400px 0;
-  }
-}
-
-.skeleton {
-  background: linear-gradient(90deg, #eef2f7 25%, #e2e8f0 37%, #eef2f7 63%);
-  background-size: 800px 100%;
-  animation: shimmer 1.4s ease infinite;
-}
-
-@keyframes pingSoft {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  70%,
-  100% {
-    transform: scale(2.4);
-    opacity: 0;
-  }
-}
-
-.animate-pingSoft {
-  animation: pingSoft 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Leaflet polish (map popups inherit the app typography)            */
-/* ------------------------------------------------------------------ */
-.leaflet-container {
-  font: inherit;
-  background: #e8edf3;
-}
-
-.leaflet-popup-content-wrapper {
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 12px 32px rgb(15 23 42 / 0.16);
-}
-
-.leaflet-popup-content {
-  margin: 12px 14px;
-  font-size: 12.5px;
-  line-height: 1.6;
-}
-
-.leaflet-container a.leaflet-popup-close-button {
-  color: #94a3b8;
-}
-
-.leaflet-control-attribution {
-  font-size: 10px;
-  background: rgb(255 255 255 / 0.75);
 }

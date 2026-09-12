@@ -1,39 +1,23 @@
 import React from "react";
 
-const OrderConsolidationSummary = ({ orders }) => {
-  if (!orders || orders.length === 0) return null;
-
-  const totalOrders = orders.length;
-  const totalDistance = orders.reduce((sum, o) => sum + o.distance, 0);
-  const avgDistance = (totalDistance / totalOrders).toFixed(2);
-
-  const highRiskCount = orders.filter(o => o.riskScore >= 70).length;
-  const consolidatedGroups = Math.floor(totalOrders / 3); // 3 per group idea
-
-  const stats = [
-    { label: "Total Orders", value: String(totalOrders) },
-    { label: "Average Distance", value: `${avgDistance} km` },
-    { label: "High Risk Orders", value: String(highRiskCount) },
-    { label: "Suggested Consolidation Groups", value: String(consolidatedGroups) },
-  ];
-
+const ConsolidationSummary = ({ summary }) => {
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-      {stats.map((stat) => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+      {summary.map((zone) => (
         <div
-          key={stat.label}
-          className="rounded-xl border border-slate-200/80 bg-white px-4 py-3.5 shadow-sm transition-shadow hover:shadow-md"
+          key={zone.zone}
+          className="bg-white shadow-md rounded p-4 border border-blue-200"
         >
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-            {stat.label}
-          </p>
-          <p className="mt-1.5 text-2xl font-bold tracking-tight text-slate-900 tabular-nums">
-            {stat.value}
-          </p>
+          <h3 className="text-lg font-semibold text-blue-800 mb-2">
+            📍 {zone.zone}
+          </h3>
+          <p>📦 Orders: {zone.totalOrders}</p>
+          <p>🕓 Avg Delay: {zone.averageDelay.toFixed(1)} min</p>
+          <p>💰 Cost Score: {zone.costScore.toFixed(2)}</p>
         </div>
       ))}
     </div>
   );
 };
 
-export default OrderConsolidationSummary;
+export default ConsolidationSummary;
