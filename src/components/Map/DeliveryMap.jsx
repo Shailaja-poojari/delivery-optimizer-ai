@@ -27,8 +27,26 @@ const DeliveryMap = ({ orders, agentLocation }) => {
   const center = [12.9716, 77.5946]; // Bengaluru default
 
   return (
-    <div className="h-[400px] mb-6 rounded shadow overflow-hidden z-0">
-      <MapContainer center={center} zoom={12} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
+    <div className="relative z-0 mb-6 h-[400px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+      {/* Floating legend badge (does not intercept map interactions) */}
+      <div className="pointer-events-none absolute right-3 top-3 z-[1000] rounded-xl border border-slate-200/80 bg-white/90 px-3 py-2 text-[11px] font-medium text-slate-600 shadow-sm backdrop-blur">
+        <p className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-indigo-500" aria-hidden="true" />
+          Delivery stop
+        </p>
+        <p className="mt-1 flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
+          Agent (live GPS)
+        </p>
+      </div>
+
+      <MapContainer
+        center={center}
+        zoom={12}
+        scrollWheelZoom={false}
+        style={{ height: "100%", width: "100%" }}
+        aria-label="Delivery network map"
+      >
         <TileLayer
           attribution='&copy; <a href="http://osm.org">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
